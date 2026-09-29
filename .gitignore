@@ -1,0 +1,7 @@
+# Scarti di macOS
+.DS_Store
+._*
+
+# Cache della CLI di Netlify: se ricompare con dentro X-Robots-Tag rimette il
+# noindex a ogni deploy. Vedi il README del progetto principale.
+.netlify/

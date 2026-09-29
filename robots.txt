@@ -1,0 +1,6 @@
+# Solo per l'anteprima su Netlify: tiene la demo fuori dai motori di ricerca.
+# VA CANCELLATO prima di pubblicare sul dominio vero, o il sito resta invisibile.
+# In questa cartella NON va aggiunto un file _headers: vedi il README alla voce
+# "Il noindex e perché in queste cartelle non c'è un _headers".
+User-agent: *
+Disallow: /
