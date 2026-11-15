@@ -607,23 +607,27 @@
       <!-- Il video parte solo al click: con preload="none" il browser non
            scarica un byte finché non si preme play. Vale anche per la variante
            incorporata — vedi data-embed qui sotto. -->
-      <!-- [DA COMPILARE] l'indirizzo del video. Il file (75 MB, 10:53) non sta
-           nel repo per scelta: va caricato su YouTube o Vimeo come «non in
-           elenco». Poi basta rimettere il <button> al posto del <div> e
-           incollare l'indirizzo in data-embed, per esempio
-           data-embed="https://www.youtube-nocookie.com/embed/XXXXXXXX?autoplay=1"
-           Lo script lo crea solo al click, quindi al primo caricamento non
-           viene contattato nessun terzo. -->
+      <!-- L'iframe nasce SOLO al click: al primo caricamento la pagina non
+           contatta YouTube, e nemmeno per la miniatura — per questo il riquadro
+           è un fondo pieno e non l'anteprima del video.
+           Dominio youtube-nocookie.com, rel=0 per non suggerire video altrui a
+           fine riproduzione. -->
       <figure class="video" id="intervista">
-        <div class="video-avvia video-attesa">
+        <button class="video-avvia" type="button"
+                data-embed="https://www.youtube-nocookie.com/embed/48U_b742aBA?autoplay=1&amp;rel=0"
+                aria-describedby="video-nota"
+                aria-label="Riproduci l'intervista a Roberta Battini, 11 minuti, caricata da YouTube">
           <span class="play" aria-hidden="true">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z"/></svg>
           </span>
           <span class="video-testo">
             <b>L'intervista a Roberta Battini</b>
-            <small>11 minuti · disponibile a breve</small>
+            <small>11 minuti · si apre da YouTube</small>
           </span>
-        </div>
+        </button>
+        <figcaption class="video-nota" id="video-nota">Premendo play il video viene
+          caricato da YouTube, che riceverà la tua richiesta. Fino a quel momento questa
+          pagina non contatta nessun servizio esterno.</figcaption>
       </figure>
     </div>
   </div>

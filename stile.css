@@ -645,11 +645,10 @@ footer a:hover{color:var(--turq)}
   padding:24px;text-align:center;transition:border-color .3s;
 }
 .video-avvia:hover{border-color:var(--turq)}
-/* Finché manca l'indirizzo del video il riquadro non è cliccabile: meglio un
-   pannello che dice «a breve» di un pulsante che non fa niente. */
-.video-attesa{cursor:default;opacity:.8}
-.video-attesa:hover{border-color:var(--line)}
-.video-attesa .play{background:#2A4442;color:#8FA2A0}
+/* Avviso prima del click: è quello che rende il consenso informato, quindi
+   deve stare lì sotto in chiaro, non nascosto in una pagina legale. */
+.video-nota{font-size:.84rem;color:var(--ink-2);margin-top:10px;max-width:56ch}
+.sec-dark .video-nota{color:#8FA2A0}
 .video-avvia .play{
   width:66px;height:66px;border-radius:50%;background:var(--turq);color:var(--ink);
   display:grid;place-items:center;padding-left:4px;
