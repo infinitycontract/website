@@ -174,6 +174,75 @@
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════════════
+     LA NOSTRA MISSIONE — testo del documento del 17/10/2026.
+     Il documento la vuole «subito dopo l'hero e prima di Borgo Noseda»:
+     sta qui, dopo la riga del manifesto che le fa da apertura.
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="sec sec-alt missione" id="missione" aria-labelledby="h-missione">
+  <div class="wrap">
+    <div class="head-2 rv">
+      <p class="kicker">La nostra missione</p>
+      <h2 id="h-missione">Ridare bellezza al nostro <em>Paese</em>.</h2>
+    </div>
+
+    <div class="apertura rv">
+      <p class="lead">In ogni città ci sono immobili che nessuno guarda più: case
+        chiuse, edifici trascurati, spazi dimenticati. Per molti sono un problema.
+        Per noi sono un'opportunità.</p>
+      <p class="lead" style="margin-top:18px">Infinity Contract nasce per riqualificare
+        questi immobili e riportarli a vivere. Perché ogni edificio che torna bello non
+        migliora solo la vita di chi lo abita, ma anche il volto della via, del
+        quartiere e del Paese intero.</p>
+    </div>
+
+    <div class="blocco rv">
+      <h3>Cosa restituiamo</h3>
+      <ul class="restituiamo stagger">
+        <li>
+          <h4>Valore</h4>
+          <p>Trasformiamo immobili fermi in patrimoni che valgono di più, oggi e nel
+            tempo.</p>
+        </li>
+        <li>
+          <h4>Efficienza</h4>
+          <p>Interventi pensati per consumare meno, vivere meglio e rispondere agli
+            standard energetici di oggi.</p>
+        </li>
+        <li>
+          <h4>Bellezza</h4>
+          <p>Rispettiamo la storia e il carattere di ogni edificio, restituendogli
+            armonia con ciò che lo circonda.</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="blocco rv">
+      <h3>Come lavoriamo</h3>
+      <p class="lead">Seguiamo ogni progetto dall'idea alla consegna: valutazione
+        dell'immobile, progettazione, gestione del cantiere con professionisti e imprese
+        selezionate, fino al risultato finito. Un unico referente, un unico obiettivo:
+        un immobile che torna a vivere.</p>
+    </div>
+
+    <div class="blocco rv">
+      <h3>Il nostro impegno</h3>
+      <!-- Il documento diceva «Non costruiamo da zero», che contraddiceva il
+           servizio «Nuove costruzioni». Qui c'è la formula scelta dalla cliente
+           stessa nel brief di ottobre, che non esclude il nuovo. -->
+      <p class="lead">Prima di aggiungere, recuperiamo ciò che c'è già: diamo nuova vita
+        agli immobili esistenti. È il modo più concreto che conosciamo per far crescere il
+        valore delle persone, dei luoghi e del territorio, tra Como, la Brianza e Milano.</p>
+    </div>
+
+    <div class="chiusura rv">
+      <a class="btn btn-lg" href="#contatti" data-motivo="Ho un immobile a cui dare nuova vita">
+        <span>Hai un immobile a cui dare nuova vita? Parliamone.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════
      SERVIZI — nell'ordine indicato dal brief
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="sec" id="servizi" aria-labelledby="h-servizi">
@@ -535,17 +604,27 @@
         </li>
       </ul>
 
-      <!-- SEGNAPOSTO del video dell'intervista a Roberta. Quando è pubblicato,
-           sostituire con un <iframe> caricato SOLO al click, come la mappa, per
-           non chiamare YouTube al primo caricamento. -->
-      <div class="ph video-ph" data-ph="Video — l'intervista a Roberta Battini">
-        <div>
+      <!-- Il video parte solo al click: con preload="none" il browser non
+           scarica un byte finché non si preme play. Vale anche per la variante
+           incorporata — vedi data-embed qui sotto. -->
+      <!-- [DA COMPILARE] l'indirizzo del video. Il file (75 MB, 10:53) non sta
+           nel repo per scelta: va caricato su YouTube o Vimeo come «non in
+           elenco». Poi basta rimettere il <button> al posto del <div> e
+           incollare l'indirizzo in data-embed, per esempio
+           data-embed="https://www.youtube-nocookie.com/embed/XXXXXXXX?autoplay=1"
+           Lo script lo crea solo al click, quindi al primo caricamento non
+           viene contattato nessun terzo. -->
+      <figure class="video" id="intervista">
+        <div class="video-avvia video-attesa">
           <span class="play" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z"/></svg>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z"/></svg>
           </span>
-          <p>Il video dell'intervista va qui, appena è pubblicato.</p>
+          <span class="video-testo">
+            <b>L'intervista a Roberta Battini</b>
+            <small>11 minuti · disponibile a breve</small>
+          </span>
         </div>
-      </div>
+      </figure>
     </div>
   </div>
 </section>

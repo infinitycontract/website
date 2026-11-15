@@ -135,6 +135,38 @@ if (puntatore && !calmo) {
   });
 })();
 
+/* ── Video su richiesta ──────────────────────────────────────────────────
+   Niente parte da solo. Con un file locale si usa <video preload="none">,
+   così il browser non scarica nulla finché non si preme play; con un video
+   incorporato (YouTube/Vimeo) l'iframe nasce soltanto al click, quindi al
+   primo caricamento non viene contattato nessun terzo.
+   Per passare all'incorporato basta sostituire l'attributo data-video con
+   data-embed="https://www.youtube-nocookie.com/embed/XXXX?autoplay=1".
+   ──────────────────────────────────────────────────────────────────────── */
+$$('[data-video],[data-embed]').forEach(function(b){
+  b.addEventListener('click', function(){
+    var el;
+    if (b.dataset.embed) {
+      el = document.createElement('iframe');
+      el.src = b.dataset.embed;
+      el.setAttribute('title', b.getAttribute('aria-label') || 'Video');
+      el.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen');
+      el.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      el.setAttribute('allowfullscreen', '');
+    } else {
+      el = document.createElement('video');
+      el.src = b.dataset.video;
+      el.controls = true;
+      el.setAttribute('preload', 'none');
+      el.setAttribute('playsinline', '');
+    }
+    b.replaceWith(el);
+    el.focus({ preventScroll: true });
+    /* Se il browser rifiuta l'avvio automatico restano comunque i controlli. */
+    if (el.play) { var p = el.play(); if (p && p.catch) p.catch(function(){}); }
+  });
+});
+
 /* ── Mappa su richiesta: nessun embed di terzi prima del click ───────── */
 (function mappa(){
   var b = $('#mapBtn'); if (!b) return;

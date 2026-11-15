@@ -5,3 +5,8 @@
 # Cache della CLI di Netlify: se ricompare con dentro X-Robots-Tag rimette il
 # noindex a ogni deploy. Vedi il README del progetto principale.
 .netlify/
+
+# Il video dell'intervista (75 MB) resta fuori dal repo: va su YouTube o Vimeo
+# come "non in elenco" e incorporato solo al click. La copia in video/ serve
+# solo in locale ed è cancellabile.
+video/

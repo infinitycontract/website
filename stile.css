@@ -634,15 +634,34 @@ footer a:hover{color:var(--turq)}
 /* ═══════════════════════════════════════════════════════════════════════
    CHI SIAMO — video dell'intervista
    ═══════════════════════════════════════════════════════════════════════ */
-.video-ph{
-  aspect-ratio:16/9;border-radius:var(--rad);margin-top:28px;
-  display:grid;place-items:center;text-align:center;padding:24px;
+.video{margin:28px 0 0}
+.video-avvia{
+  position:relative;width:100%;aspect-ratio:16/9;border:1px solid var(--line);
+  border-radius:var(--rad);cursor:pointer;overflow:hidden;
+  /* Colore pieno sotto il gradiente: se il gradiente non viene disegnato il
+     testo chiaro resta su fondo scuro invece che su fondo trasparente. */
+  background:#122927 linear-gradient(135deg,#17302E,#0C1F1E 60%,#13302E);color:var(--bone);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  padding:24px;text-align:center;transition:border-color .3s;
 }
-.video-ph .play{
-  width:64px;height:64px;border-radius:50%;background:var(--turq);color:var(--ink);
-  display:grid;place-items:center;margin:0 auto 14px;
+.video-avvia:hover{border-color:var(--turq)}
+/* Finché manca l'indirizzo del video il riquadro non è cliccabile: meglio un
+   pannello che dice «a breve» di un pulsante che non fa niente. */
+.video-attesa{cursor:default;opacity:.8}
+.video-attesa:hover{border-color:var(--line)}
+.video-attesa .play{background:#2A4442;color:#8FA2A0}
+.video-avvia .play{
+  width:66px;height:66px;border-radius:50%;background:var(--turq);color:var(--ink);
+  display:grid;place-items:center;padding-left:4px;
+  transition:transform .4s var(--ease);
 }
-.video-ph p{font-size:.92rem;color:var(--ink-2);max-width:34ch}
+.video-avvia:hover .play{transform:scale(1.07)}
+.video-testo b{display:block;font-family:var(--serif);font-weight:400;font-size:1.3rem}
+.video-testo small{display:block;margin-top:5px;font-size:12px;color:#8FA2A0}
+/* Una volta avviato, il player prende il posto del bottone */
+.video video,.video iframe{
+  width:100%;aspect-ratio:16/9;display:block;border:0;border-radius:var(--rad);background:#000;
+}
 
 /* ═══════════════════════════════════════════════════════════════════════
    LAVORA CON NOI
@@ -695,3 +714,25 @@ footer a:hover{color:var(--turq)}
 }
 .foot-legale span{white-space:nowrap}
 .foot-legale .sep{opacity:.5}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   LA NOSTRA MISSIONE
+   Molto spazio bianco, come chiede il documento: i tre blocchi respirano
+   e i sottotitoli restano nel serif del sito.
+   ═══════════════════════════════════════════════════════════════════════ */
+.missione .apertura{max-width:58ch}
+.missione .blocco{margin-top:clamp(44px,6vw,76px)}
+.missione h3{
+  font-size:clamp(1.25rem,2.1vw,1.6rem);margin-bottom:24px;
+  padding-bottom:14px;border-bottom:1px solid var(--line);
+}
+.restituiamo{display:grid;gap:clamp(26px,3.4vw,44px);list-style:none}
+@media(min-width:820px){.restituiamo{grid-template-columns:repeat(3,1fr)}}
+.restituiamo h4{
+  font-family:var(--serif);font-weight:400;letter-spacing:-.01em;
+  font-size:clamp(1.3rem,2vw,1.62rem);line-height:1.1;color:var(--petrol);
+  margin-bottom:10px;
+}
+.restituiamo p{color:var(--ink-2);font-size:.98rem}
+.missione .blocco p{max-width:64ch}
+.missione .chiusura{margin-top:clamp(40px,5vw,60px)}
