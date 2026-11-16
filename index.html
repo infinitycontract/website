@@ -128,11 +128,9 @@
     </div>
 
     <div class="hero-media">
-      <!-- SEGNAPOSTO. Il brief chiede un prima/dopo di un immobile riqualificato;
-           finché non ci sono le foto reali, un render di Borgo Noseda:
-           <img src="img/hero.webp" alt="…" width="1000" height="1250"
-           loading="eager" decoding="async" class="hero-ph" /> -->
-      <div class="ph hero-ph" data-ph="Render — Borgo Noseda" id="heroPh"></div>
+      <img src="img/progetto-corte.jpg" class="hero-ph" id="heroPh"
+           width="1400" height="787" loading="eager" decoding="async" fetchpriority="high"
+           alt="La corte di Borgo Noseda come sarà a lavori finiti: facciate chiare, scuri rossi, scale in pietra." />
       <div class="hero-tag">
         <b>7</b>
         <span>appartamenti a Borgo Noseda, Cernobbio — alcuni con vista lago</span>
@@ -310,35 +308,6 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════════════════
-     PRIMA / DOPO
-     ══════════════════════════════════════════════════════════════════════ -->
-<section class="sec sec-alt" aria-labelledby="h-ba">
-  <div class="wrap">
-    <div class="head-2 rv">
-      <p class="kicker">Prima e dopo</p>
-      <h2 id="h-ba">La versione <em>migliore</em> esisteva già</h2>
-    </div>
-    <p class="lead rv" style="margin-bottom:30px;max-width:56ch">Trascina la maniglia:
-      a sinistra l'immobile com'era, a destra com'è dopo l'intervento. Con la tastiera,
-      frecce destra e sinistra.</p>
-
-    <div class="ba rv" id="ba">
-      <!-- SEGNAPOSTO. Il brief è esplicito: qui vanno solo foto reali di lavori
-           Infinity Contract, due scatti dallo STESSO punto di vista e stesse
-           proporzioni, altrimenti il confronto non funziona.
-           <img src="img/prima.webp" alt="L'immobile prima dell'intervento" class="strato" />
-           <img src="img/dopo.webp"  alt="Lo stesso immobile a lavori finiti" class="strato dopo" /> -->
-      <div class="ph strato ph-dark" data-ph="Foto — prima"></div>
-      <div class="ph strato dopo" data-ph="Foto — dopo"></div>
-      <span class="et et-a">Prima</span>
-      <span class="et et-b">Dopo</span>
-      <input type="range" id="baRange" min="0" max="100" value="50"
-        aria-label="Confronto prima e dopo, in percentuale" />
-      <div class="ba-h" aria-hidden="true"><i>◀▶</i></div>
-    </div>
-  </div>
-</section>
 
 <!-- ══════════════════════════════════════════════════════════════════════
      BORGO NOSEDA — il progetto in evidenza.
@@ -348,10 +317,9 @@
 <section class="sec sec-dark evid" id="borgo" aria-labelledby="h-borgo">
   <div class="wrap evid-grid">
     <div class="rv">
-      <!-- SEGNAPOSTO. Il brief indica foto da drone del borgo.
-           <img src="img/borgo-noseda.webp" alt="Borgo Noseda, Cernobbio"
-           width="1000" height="750" loading="lazy" decoding="async" class="evid-ph" /> -->
-      <div class="ph evid-ph ph-dark" data-ph="Foto drone — Borgo Noseda"></div>
+      <img src="img/borgo-dallalto.jpg" class="evid-ph"
+           width="1400" height="781" loading="lazy" decoding="async"
+           alt="Borgo Noseda visto dall'alto: i tetti del borgo, Cernobbio e il lago di Como sullo sfondo." />
     </div>
     <div class="rv">
       <span class="stato-lav">Commercializzazione aperta</span>
@@ -382,6 +350,215 @@
         </li>
       </ul>
       <a class="btn btn-lg" href="#contatti" data-motivo="Informazioni su Borgo Noseda"><span>Chiedi informazioni</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     GALLERIA — lo stato di fatto e il progetto, distinti dall'etichetta.
+     Nella griglia stanno le miniature (-sm); l'immagine grande si scarica
+     solo quando si apre il lightbox.
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="sec" id="galleria" aria-labelledby="h-galleria">
+  <div class="wrap">
+    <div class="head-row">
+      <div>
+        <p class="kicker">La galleria</p>
+        <h2 id="h-galleria">Com'è oggi, e come <em>sarà</em></h2>
+      </div>
+      <p class="lead">Le foto segnate «Oggi» sono il borgo com'è adesso. Quelle
+        segnate «Progetto» sono i render dell'intervento: servono a far vedere la
+        casa prima che esista.</p>
+    </div>
+
+    <div class="gal-filtri" role="group" aria-label="Filtra le immagini">
+      <button class="gal-filtro" data-f="tutte" aria-pressed="true">Tutte</button>
+      <button class="gal-filtro" data-f="oggi" aria-pressed="false">Il borgo oggi</button>
+      <button class="gal-filtro" data-f="esterni" aria-pressed="false">Esterni</button>
+      <button class="gal-filtro" data-f="interni" aria-pressed="false">Interni</button>
+    </div>
+
+    <div class="galleria" id="galleria">
+      <figure class="gal-voce" data-gruppo="oggi">
+        <button class="gal-apri" type="button"
+                data-grande="img/oggi-vicolo-lago.jpg"
+                data-titolo="Il vicolo verso il lago"
+                data-tag="Oggi"
+                aria-label="Ingrandisci: Il vicolo verso il lago">
+          <span class="gal-tag">Oggi</span>
+          <img src="img/oggi-vicolo-lago-sm.jpg" width="570" height="760" loading="lazy" decoding="async"
+               alt="Un vicolo del borgo a Cernobbio prima dell'intervento, con il lago di Como in fondo." />
+        </button>
+        <figcaption>Il vicolo verso il lago</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="oggi">
+        <button class="gal-apri" type="button"
+                data-grande="img/oggi-fronte-strada.jpg"
+                data-titolo="Il fronte strada"
+                data-tag="Oggi"
+                aria-label="Ingrandisci: Il fronte strada">
+          <span class="gal-tag">Oggi</span>
+          <img src="img/oggi-fronte-strada-sm.jpg" width="570" height="760" loading="lazy" decoding="async"
+               alt="Le facciate del borgo prima dell'intervento, con intonaco da rifare." />
+        </button>
+        <figcaption>Il fronte strada</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="oggi">
+        <button class="gal-apri" type="button"
+                data-grande="img/oggi-corte.jpg"
+                data-titolo="La corte interna"
+                data-tag="Oggi"
+                aria-label="Ingrandisci: La corte interna">
+          <span class="gal-tag">Oggi</span>
+          <img src="img/oggi-corte-sm.jpg" width="570" height="760" loading="lazy" decoding="async"
+               alt="La corte interna del borgo prima dell'intervento, con il prato incolto." />
+        </button>
+        <figcaption>La corte interna</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="esterni">
+        <button class="gal-apri" type="button"
+                data-grande="img/progetto-corte.jpg"
+                data-titolo="La corte a lavori finiti"
+                data-tag="Progetto"
+                aria-label="Ingrandisci: La corte a lavori finiti">
+          <span class="gal-tag progetto">Progetto</span>
+          <img src="img/progetto-corte-sm.jpg" width="760" height="427" loading="lazy" decoding="async"
+               alt="Render della corte di Borgo Noseda a lavori finiti." />
+        </button>
+        <figcaption>La corte a lavori finiti</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="esterni">
+        <button class="gal-apri" type="button"
+                data-grande="img/progetto-corte-fiorita.jpg"
+                data-titolo="La corte dall'alto"
+                data-tag="Progetto"
+                aria-label="Ingrandisci: La corte dall'alto">
+          <span class="gal-tag progetto">Progetto</span>
+          <img src="img/progetto-corte-fiorita-sm.jpg" width="760" height="427" loading="lazy" decoding="async"
+               alt="Render della corte vista dalle scale, con fioriere e scuri rossi." />
+        </button>
+        <figcaption>La corte dall'alto</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="esterni">
+        <button class="gal-apri" type="button"
+                data-grande="img/progetto-corte-cancello.jpg"
+                data-titolo="L'ingresso dalla corte"
+                data-tag="Progetto"
+                aria-label="Ingrandisci: L'ingresso dalla corte">
+          <span class="gal-tag progetto">Progetto</span>
+          <img src="img/progetto-corte-cancello-sm.jpg" width="760" height="427" loading="lazy" decoding="async"
+               alt="Render dell'ingresso alla corte, con il cancello in ferro." />
+        </button>
+        <figcaption>L'ingresso dalla corte</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="esterni">
+        <button class="gal-apri" type="button"
+                data-grande="img/progetto-facciata.jpg"
+                data-titolo="Il fronte con i balconi"
+                data-tag="Progetto"
+                aria-label="Ingrandisci: Il fronte con i balconi">
+          <span class="gal-tag progetto">Progetto</span>
+          <img src="img/progetto-facciata-sm.jpg" width="760" height="427" loading="lazy" decoding="async"
+               alt="Render della facciata con balconi, scuri rossi e scala esterna." />
+        </button>
+        <figcaption>Il fronte con i balconi</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="esterni">
+        <button class="gal-apri" type="button"
+                data-grande="img/progetto-posti-auto.jpg"
+                data-titolo="I posti auto coperti"
+                data-tag="Progetto"
+                aria-label="Ingrandisci: I posti auto coperti">
+          <span class="gal-tag progetto">Progetto</span>
+          <img src="img/progetto-posti-auto-sm.jpg" width="760" height="427" loading="lazy" decoding="async"
+               alt="Render dei posti auto coperti sotto la tettoia in legno." />
+        </button>
+        <figcaption>I posti auto coperti</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="esterni">
+        <button class="gal-apri" type="button"
+                data-grande="img/progetto-box.jpg"
+                data-titolo="I box"
+                data-tag="Progetto"
+                aria-label="Ingrandisci: I box">
+          <span class="gal-tag progetto">Progetto</span>
+          <img src="img/progetto-box-sm.jpg" width="760" height="427" loading="lazy" decoding="async"
+               alt="Render dell'interno dei box, con il portone rosso." />
+        </button>
+        <figcaption>I box</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="interni">
+        <button class="gal-apri" type="button"
+                data-grande="img/progetto-soggiorno-lago.jpg"
+                data-titolo="Soggiorno con vista lago"
+                data-tag="Progetto"
+                aria-label="Ingrandisci: Soggiorno con vista lago">
+          <span class="gal-tag progetto">Progetto</span>
+          <img src="img/progetto-soggiorno-lago-sm.jpg" width="760" height="520" loading="lazy" decoding="async"
+               alt="Render di un soggiorno con tavolo da pranzo e finestra sul lago." />
+        </button>
+        <figcaption>Soggiorno con vista lago</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="interni">
+        <button class="gal-apri" type="button"
+                data-grande="img/progetto-soggiorno-tv.jpg"
+                data-titolo="Soggiorno e zona pranzo"
+                data-tag="Progetto"
+                aria-label="Ingrandisci: Soggiorno e zona pranzo">
+          <span class="gal-tag progetto">Progetto</span>
+          <img src="img/progetto-soggiorno-tv-sm.jpg" width="760" height="520" loading="lazy" decoding="async"
+               alt="Render di un soggiorno con divano curvo, zona pranzo e televisore." />
+        </button>
+        <figcaption>Soggiorno e zona pranzo</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="interni">
+        <button class="gal-apri" type="button"
+                data-grande="img/progetto-soggiorno-bilocale.jpg"
+                data-titolo="Il soggiorno di un bilocale"
+                data-tag="Progetto"
+                aria-label="Ingrandisci: Il soggiorno di un bilocale">
+          <span class="gal-tag progetto">Progetto</span>
+          <img src="img/progetto-soggiorno-bilocale-sm.jpg" width="760" height="520" loading="lazy" decoding="async"
+               alt="Render del soggiorno di un bilocale, con cucina a vista." />
+        </button>
+        <figcaption>Il soggiorno di un bilocale</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="interni">
+        <button class="gal-apri" type="button"
+                data-grande="img/progetto-cucina.jpg"
+                data-titolo="Cucina e soggiorno"
+                data-tag="Progetto"
+                aria-label="Ingrandisci: Cucina e soggiorno">
+          <span class="gal-tag progetto">Progetto</span>
+          <img src="img/progetto-cucina-sm.jpg" width="760" height="520" loading="lazy" decoding="async"
+               alt="Render di cucina e soggiorno open space, con vista sulla montagna." />
+        </button>
+        <figcaption>Cucina e soggiorno</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="interni">
+        <button class="gal-apri" type="button"
+                data-grande="img/progetto-camera.jpg"
+                data-titolo="La camera"
+                data-tag="Progetto"
+                aria-label="Ingrandisci: La camera">
+          <span class="gal-tag progetto">Progetto</span>
+          <img src="img/progetto-camera-sm.jpg" width="760" height="520" loading="lazy" decoding="async"
+               alt="Render di una camera da letto con armadiatura in legno." />
+        </button>
+        <figcaption>La camera</figcaption>
+      </figure>
+      <figure class="gal-voce" data-gruppo="interni">
+        <button class="gal-apri" type="button"
+                data-grande="img/progetto-bagno.jpg"
+                data-titolo="Il bagno"
+                data-tag="Progetto"
+                aria-label="Ingrandisci: Il bagno">
+          <span class="gal-tag progetto">Progetto</span>
+          <img src="img/progetto-bagno-sm.jpg" width="760" height="520" loading="lazy" decoding="async"
+               alt="Render di un bagno con doccia a filo pavimento e mobile in legno." />
+        </button>
+        <figcaption>Il bagno</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -568,10 +745,12 @@
 <section class="sec" id="chi" aria-labelledby="h-chi">
   <div class="wrap chi-grid">
     <div class="rv">
-      <!-- SEGNAPOSTO. Il brief chiede una foto del team.
-           <img src="img/team.webp" alt="La squadra di Infinity Contract"
-           width="800" height="800" loading="lazy" decoding="async" class="chi-ph" /> -->
-      <div class="ph chi-ph" data-ph="Foto — la squadra"></div>
+      <!-- [DA SOSTITUIRE] il brief chiede una foto della squadra: questa è un
+           vicolo del borgo prima dell'intervento. Regge, ma una foto delle
+           persone direbbe molto di più. -->
+      <img src="img/oggi-vicolo-lago.jpg" class="chi-ph"
+           width="1050" height="1400" loading="lazy" decoding="async"
+           alt="Un vicolo del borgo a Cernobbio prima dell'intervento, con il lago sullo sfondo." />
     </div>
     <div class="rv">
       <p class="kicker">Chi siamo</p>
@@ -957,6 +1136,22 @@
     Scrivici
   </a>
 </nav>
+
+<!-- Lightbox della galleria. Vuoto finché non si apre: l'immagine grande
+     viene creata al momento, così non pesa sul caricamento della pagina. -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Immagine ingrandita" hidden>
+  <button class="lb-chiudi" type="button" aria-label="Chiudi">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+  </button>
+  <button class="lb-prec" type="button" aria-label="Immagine precedente">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <img alt="" />
+  <button class="lb-succ" type="button" aria-label="Immagine successiva">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+  <p class="lb-didascalia"><b></b><span></span></p>
+</div>
 
 <script src="script.js"></script>
 </body>

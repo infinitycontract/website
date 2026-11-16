@@ -95,12 +95,80 @@ if (document.fonts && document.fonts.ready) {
   io.observe($('.pianta'));
 })();
 
-/* ── Prima / dopo ────────────────────────────────────────────────────── */
-(function primaDopo(){
-  var box = $('#ba'), r = $('#baRange'); if (!box || !r) return;
-  function agg(){ box.style.setProperty('--x', r.value + '%'); }
-  r.addEventListener('input', agg);
-  agg();
+/* ── Galleria: filtri e lightbox ─────────────────────────────────────────
+   Le frecce scorrono solo le immagini visibili con il filtro attivo, non
+   tutte: altrimenti filtrare non servirebbe a niente.
+   ──────────────────────────────────────────────────────────────────────── */
+(function galleria(){
+  var griglia = $('#galleria'); if (!griglia) return;
+  var voci   = $$('.gal-voce', griglia);
+  var lb     = $('#lightbox');
+  var imgLb  = $('img', lb);
+  var titolo = $('.lb-didascalia b', lb);
+  var tag    = $('.lb-didascalia span', lb);
+  var chiudi = $('.lb-chiudi', lb);
+  var corrente = null, tornaA = null;
+
+  /* ── filtri ── */
+  var bottoni = $$('.gal-filtro');
+  bottoni.forEach(function(b){
+    b.addEventListener('click', function(){
+      bottoni.forEach(function(o){ o.setAttribute('aria-pressed', String(o === b)); });
+      var f = b.dataset.f;
+      voci.forEach(function(v){
+        v.classList.toggle('nascosta', f !== 'tutte' && v.dataset.gruppo !== f);
+      });
+    });
+  });
+
+  function visibili(){
+    return voci.filter(function(v){ return !v.classList.contains('nascosta'); });
+  }
+
+  function mostra(fig){
+    var b = $('.gal-apri', fig);
+    corrente = fig;
+    imgLb.src = b.dataset.grande;
+    imgLb.alt = $('img', b).alt;
+    titolo.textContent = b.dataset.titolo;
+    tag.textContent = b.dataset.tag === 'Oggi' ? 'Stato di fatto' : 'Render di progetto';
+  }
+
+  function apri(fig){
+    tornaA = $('.gal-apri', fig);
+    mostra(fig);
+    lb.hidden = false;
+    lb.classList.add('aperto');
+    document.body.style.overflow = 'hidden';
+    chiudi.focus();
+  }
+  function chiudiLb(){
+    lb.classList.remove('aperto');
+    lb.hidden = true;
+    imgLb.removeAttribute('src');
+    document.body.style.overflow = '';
+    if (tornaA) tornaA.focus();
+  }
+  function scorri(passo){
+    var v = visibili(), i = v.indexOf(corrente);
+    if (i < 0) return;
+    mostra(v[(i + passo + v.length) % v.length]);
+  }
+
+  voci.forEach(function(fig){
+    $('.gal-apri', fig).addEventListener('click', function(){ apri(fig); });
+  });
+  chiudi.addEventListener('click', chiudiLb);
+  $('.lb-prec', lb).addEventListener('click', function(){ scorri(-1); });
+  $('.lb-succ', lb).addEventListener('click', function(){ scorri(1); });
+  /* Il click sullo sfondo chiude; quello sull'immagine o sui bottoni no. */
+  lb.addEventListener('click', function(e){ if (e.target === lb) chiudiLb(); });
+  document.addEventListener('keydown', function(e){
+    if (lb.hidden) return;
+    if (e.key === 'Escape')     { chiudiLb(); }
+    if (e.key === 'ArrowLeft')  { scorri(-1); }
+    if (e.key === 'ArrowRight') { scorri(1); }
+  });
 })();
 
 /* ── FAQ: una alla volta ─────────────────────────────────────────────── */

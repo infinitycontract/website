@@ -244,7 +244,7 @@ p{max-width:68ch}
   /* L'immagine prende quello che resta invece di imporre una proporzione fissa:
      così l'hero entra anche sugli schermi corti, senza tagli. */
   .hero .hero-media{flex:1;display:flex;flex-direction:column;min-height:130px}
-  .hero .hero-ph{flex:1;aspect-ratio:auto;min-height:110px}
+  .hero .hero-ph{flex:1;height:auto;aspect-ratio:auto;min-height:110px;object-position:center 60%}
   .hero .hero-tag{position:static;max-width:none;margin-top:10px;box-shadow:none;
     display:flex;align-items:center;gap:12px}
   .hero .hero-tag b{font-size:1.3rem}
@@ -267,7 +267,8 @@ p{max-width:68ch}
 
 .hero-media{position:relative}
 .hero-ph{
-  aspect-ratio:4/5;border-radius:var(--rad);
+  aspect-ratio:4/5;border-radius:var(--rad);object-fit:cover;width:100%;height:auto;
+  object-position:center 62%;    /* tiene la corte, non il cielo */
   clip-path:inset(0 0 100% 0);transition:clip-path 1.3s var(--ease) .25s;
 }
 .ready .hero-ph{clip-path:inset(0 0 0 0)}
@@ -322,41 +323,6 @@ p{max-width:68ch}
   font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);border:1px solid var(--line-2);border-radius:999px;padding:5px 12px;
 }
-
-/* ═══════════════════════════════════════════════════════════════════════
-   PRIMA / DOPO
-   ═══════════════════════════════════════════════════════════════════════ */
-.ba{position:relative;aspect-ratio:16/9;border-radius:var(--rad);overflow:hidden;touch-action:pan-y;user-select:none}
-.ba .strato{position:absolute;inset:0}
-.ba .dopo{clip-path:inset(0 0 0 var(--x,50%))}
-/* Dentro il confronto le didascalie dei segnaposto starebbero una sopra
-   l'altra, e quella del livello "dopo" verrebbe tagliata dal clip-path.
-   Qui bastano le due pastiglie Prima/Dopo. */
-.ba .ph::after{display:none}
-.ba .et{
-  position:absolute;top:14px;padding:6px 12px;border-radius:2px;font-size:12px;font-weight:700;
-  letter-spacing:.14em;text-transform:uppercase;background:rgba(16,32,31,.82);color:var(--bone);
-}
-.ba .et-a{left:14px}
-.ba .et-b{right:14px;background:var(--turq);color:var(--ink)}
-.ba-h{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;background:var(--turq);pointer-events:none;transform:translateX(-1px)}
-.ba-h::after{
-  content:'';position:absolute;top:50%;left:50%;width:46px;height:46px;transform:translate(-50%,-50%);
-  border-radius:50%;background:var(--turq);box-shadow:0 4px 18px rgba(16,32,31,.3);
-}
-.ba-h i{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;
-  color:var(--ink);font-style:normal;font-size:15px;font-weight:700;letter-spacing:-.06em;
-}
-.ba input[type=range]{
-  position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;
-  -webkit-appearance:none;appearance:none;background:none;
-}
-/* Cursore largo 0: così il valore corrisponde esattamente al punto cliccato e la
-   maniglia disegnata non va mai fuori asse rispetto al taglio. */
-.ba input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:1px;height:100%}
-.ba input[type=range]::-moz-range-thumb{width:1px;height:100%;border:0}
-.ba input[type=range]:focus-visible+.ba-h::after{outline:3px solid var(--bone);outline-offset:2px}
 
 /* ═══════════════════════════════════════════════════════════════════════
    METODO — la pianta che si disegna
@@ -427,7 +393,7 @@ p{max-width:68ch}
 
 .chi-grid{display:grid;gap:clamp(30px,4vw,56px)}
 @media(min-width:960px){.chi-grid{grid-template-columns:.92fr 1.08fr;align-items:center}}
-.chi-ph{aspect-ratio:1/1;border-radius:var(--rad)}
+.chi-ph{aspect-ratio:1/1;border-radius:var(--rad);object-fit:cover;width:100%;height:auto}
 .cit{
   font-family:var(--serif);font-size:clamp(1.5rem,2.9vw,2.15rem);line-height:1.28;
   padding-left:26px;border-left:2px solid var(--turq);margin:26px 0;max-width:30ch;
@@ -599,7 +565,8 @@ footer a:hover{color:var(--turq)}
    ═══════════════════════════════════════════════════════════════════════ */
 .evid-grid{display:grid;gap:clamp(28px,4vw,54px);align-items:center}
 @media(min-width:980px){.evid-grid{grid-template-columns:1.05fr .95fr}}
-.evid-ph{aspect-ratio:4/3;border-radius:var(--rad)}
+/* 16/9: è la proporzione nativa della foto da drone, così non si taglia. */
+.evid-ph{aspect-ratio:16/9;border-radius:var(--rad);object-fit:cover;width:100%;height:auto}
 .evid .stato-lav{
   display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;
   font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
@@ -735,3 +702,82 @@ footer a:hover{color:var(--turq)}
 .restituiamo p{color:var(--ink-2);font-size:.98rem}
 .missione .blocco p{max-width:64ch}
 .missione .chiusura{margin-top:clamp(40px,5vw,60px)}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   GALLERIA + LIGHTBOX
+   Le miniature sono file a parte (-sm): nella griglia non ha senso
+   scaricare l'immagine grande, che arriva solo quando si apre il lightbox.
+   ═══════════════════════════════════════════════════════════════════════ */
+.gal-filtri{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.gal-filtro{
+  min-height:44px;padding:10px 20px;border:1px solid var(--line-2);border-radius:999px;
+  background:none;cursor:pointer;font-size:.9rem;font-weight:500;color:inherit;
+  transition:background .3s,color .3s,border-color .3s;
+}
+.gal-filtro[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--bone)}
+.gal-filtro:hover{border-color:var(--turq-ink)}
+.sec-dark .gal-filtro{border-color:#3A4C4A}
+.sec-dark .gal-filtro[aria-pressed=true]{background:var(--turq);border-color:var(--turq);color:var(--ink)}
+
+.galleria{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:720px){.galleria{grid-template-columns:repeat(3,1fr);gap:16px}}
+@media(min-width:1100px){.galleria{grid-template-columns:repeat(4,1fr)}}
+.gal-voce{margin:0;position:relative}
+.gal-voce.nascosta{display:none}
+.gal-apri{
+  display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;
+  border-radius:var(--rad);overflow:hidden;position:relative;line-height:0;
+}
+.gal-apri img{
+  width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;
+  transition:transform .6s var(--ease),filter .4s;
+}
+.gal-apri:hover img{transform:scale(1.045)}
+.gal-apri::after{
+  content:'';position:absolute;inset:0;background:var(--ink);opacity:0;
+  transition:opacity .4s;pointer-events:none;
+}
+.gal-apri:hover::after{opacity:.12}
+.gal-voce figcaption{
+  font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--ink-2);
+  margin-top:8px;line-height:1.35;
+}
+.sec-dark .gal-voce figcaption{color:#8FA2A0}
+/* L'etichetta che distingue lo stato di fatto dal progetto */
+.gal-tag{
+  position:absolute;top:10px;left:10px;z-index:2;
+  font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;background:rgba(16,32,31,.82);color:var(--bone);
+}
+.gal-tag.progetto{background:var(--turq);color:var(--ink)}
+
+#lightbox{
+  position:fixed;inset:0;z-index:200;background:rgba(10,25,24,.96);
+  display:none;align-items:center;justify-content:center;padding:clamp(12px,3vw,40px);
+}
+#lightbox.aperto{display:flex}
+#lightbox img{
+  max-width:100%;max-height:82vh;object-fit:contain;border-radius:var(--rad);
+  background:#0A1918;
+}
+.lb-didascalia{
+  position:absolute;left:0;right:0;bottom:clamp(12px,3vw,26px);text-align:center;
+  color:var(--bone);font-size:.92rem;padding:0 60px;
+  max-width:none;   /* altrimenti vince il max-width:68ch dei paragrafi */
+}
+.lb-didascalia b{display:block;font-family:var(--serif);font-weight:400;font-size:1.2rem;margin-bottom:4px}
+.lb-didascalia span{color:#8FA2A0;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+#lightbox button{
+  position:absolute;background:rgba(246,244,240,.1);border:1px solid #3A4C4A;color:var(--bone);
+  width:52px;height:52px;border-radius:50%;cursor:pointer;display:grid;place-items:center;
+  transition:background .25s,border-color .25s;
+}
+#lightbox button:hover{background:var(--turq);border-color:var(--turq);color:var(--ink)}
+.lb-chiudi{top:clamp(12px,3vw,26px);right:clamp(12px,3vw,26px)}
+.lb-prec{left:clamp(8px,2vw,26px);top:50%;transform:translateY(-50%)}
+.lb-succ{right:clamp(8px,2vw,26px);top:50%;transform:translateY(-50%)}
+@media(max-width:560px){
+  .lb-prec{left:8px}.lb-succ{right:8px}
+  #lightbox button{width:46px;height:46px}
+  .lb-didascalia{padding:0 16px;font-size:.86rem}
+}
