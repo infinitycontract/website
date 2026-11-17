@@ -101,7 +101,11 @@ if (document.fonts && document.fonts.ready) {
    ──────────────────────────────────────────────────────────────────────── */
 (function galleria(){
   var griglia = $('#galleria'); if (!griglia) return;
-  var voci   = $$('.gal-voce', griglia);
+  /* Solo le voci che hanno davvero un'immagine da aprire: una scheda progetto
+     può dichiarare un gruppo ancora vuoto (.gal-vuota), che non è una foto e
+     non deve finire né fra i bersagli del click né nel giro delle frecce. */
+  var voci   = $$('.gal-voce', griglia).filter(function(v){ return $('.gal-apri', v); });
+  var vuoti  = $$('.gal-vuota', griglia);
   var lb     = $('#lightbox');
   var imgLb  = $('img', lb);
   var titolo = $('.lb-didascalia b', lb);
@@ -118,6 +122,9 @@ if (document.fonts && document.fonts.ready) {
       voci.forEach(function(v){
         v.classList.toggle('nascosta', f !== 'tutte' && v.dataset.gruppo !== f);
       });
+      /* Il messaggio di gruppo vuoto compare solo quando si chiede proprio
+         quel gruppo: su "tutte" sarebbe rumore. */
+      vuoti.forEach(function(p){ p.hidden = p.dataset.gruppo !== f; });
     });
   });
 
@@ -131,7 +138,11 @@ if (document.fonts && document.fonts.ready) {
     imgLb.src = b.dataset.grande;
     imgLb.alt = $('img', b).alt;
     titolo.textContent = b.dataset.titolo;
-    tag.textContent = b.dataset.tag === 'Oggi' ? 'Stato di fatto' : 'Render di progetto';
+    /* Le schede progetto hanno tre gruppi invece di due, quindi l'etichetta
+       del lightbox può essere dichiarata nel markup; senza, vale la coppia
+       stato di fatto / render usata in home. */
+    tag.textContent = b.dataset.etichetta ||
+      (b.dataset.tag === 'Oggi' ? 'Stato di fatto' : 'Render di progetto');
   }
 
   function apri(fig){
@@ -194,11 +205,27 @@ if (puntatore && !calmo) {
 /* ── Le domande dell'invito finale precompilano il motivo nel modulo ─── */
 (function motivo(){
   var sel = $('#f-int'); if (!sel) return;
+
+  function scegli(v){
+    if (!v) return false;
+    var ok = $$('option', sel).some(function(o){
+      return o.value === v || o.textContent.trim() === v;
+    });
+    if (ok) { sel.value = v; sel.dispatchEvent(new Event('change')); }
+    return ok;
+  }
+
+  /* Un link da un'altra pagina non può cliccare un elemento che lì non esiste,
+     quindi il motivo viaggia nell'indirizzo: index.html?motivo=…#contatti.
+     Il valore deve corrispondere a un'opzione esistente, altrimenti si ignora:
+     così nessuno può iniettare testo arbitrario nel modulo dalla barra URL. */
+  try {
+    scegli(new URLSearchParams(location.search).get('motivo'));
+  } catch (e) { /* senza URLSearchParams si resta su "Scegli…" */ }
+
   $$('[data-motivo]').forEach(function(a){
     a.addEventListener('click', function(){
-      var v = a.getAttribute('data-motivo');
-      var ok = $$('option', sel).some(function(o){ return o.value === v || o.textContent.trim() === v; });
-      if (ok) { sel.value = v; sel.dispatchEvent(new Event('change')); }
+      scegli(a.getAttribute('data-motivo'));
     });
   });
 })();
@@ -237,18 +264,27 @@ $$('[data-video],[data-embed]').forEach(function(b){
 
 /* ── Mappa su richiesta: nessun embed di terzi prima del click ───────── */
 (function mappa(){
-  var b = $('#mapBtn'); if (!b) return;
-  b.addEventListener('click', function(){
-    var m = $('#map');
-    var f = document.createElement('iframe');
-    f.setAttribute('title', 'Mappa: Via Ronzoni 28, Cermenate');
-    f.setAttribute('loading', 'lazy');
-    f.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
-    /* [DA VERIFICARE] coordinate prese sul centro di Cermenate, non sul civico:
-       vanno corrette qui e nel JSON-LD in testa a index.html. */
-    f.src = 'https://www.openstreetmap.org/export/embed.html?bbox=9.070%2C45.700%2C9.098%2C45.715&layer=mapnik&marker=45.7075%2C9.0839';
-    m.innerHTML = '';
-    m.appendChild(f);
+  /* Ogni mappa porta con sé le proprie coordinate: il bottone dice quale
+     contenitore riempire (data-mappa) e con quale riquadro (data-bbox,
+     data-marker). Così la sede in home e i singoli progetti usano lo stesso
+     codice, e aggiungere un progetto non richiede di toccare il JavaScript.
+     [DA VERIFICARE] le coordinate sono approssimate: centro di Cermenate per
+     la sede, centro di Cernobbio per Borgo Noseda. Vanno portate sul civico
+     esatto qui nei data-attribute e nel JSON-LD di index.html. */
+  $$('[data-mappa]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var m = document.getElementById(b.dataset.mappa);
+      if (!m || !b.dataset.bbox || !b.dataset.marker) return;
+      var f = document.createElement('iframe');
+      f.setAttribute('title', b.dataset.titoloMappa || 'Mappa');
+      f.setAttribute('loading', 'lazy');
+      f.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      f.src = 'https://www.openstreetmap.org/export/embed.html?bbox=' +
+              encodeURIComponent(b.dataset.bbox) +
+              '&layer=mapnik&marker=' + encodeURIComponent(b.dataset.marker);
+      m.innerHTML = '';
+      m.appendChild(f);
+    });
   });
 })();
 

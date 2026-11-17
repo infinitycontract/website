@@ -393,7 +393,9 @@ p{max-width:68ch}
 
 .chi-grid{display:grid;gap:clamp(30px,4vw,56px)}
 @media(min-width:960px){.chi-grid{grid-template-columns:.92fr 1.08fr;align-items:center}}
-.chi-ph{aspect-ratio:1/1;border-radius:var(--rad);object-fit:cover;width:100%;height:auto}
+/* Chi siamo è a colonna singola: senza foto la misura di lettura va tenuta
+   stretta, altrimenti i pilastri si allungano per tutti i 1240px. */
+.chi-solo{max-width:820px;margin-inline:auto}
 .cit{
   font-family:var(--serif);font-size:clamp(1.5rem,2.9vw,2.15rem);line-height:1.28;
   padding-left:26px;border-left:2px solid var(--turq);margin:26px 0;max-width:30ch;
@@ -415,6 +417,94 @@ p{max-width:68ch}
 }
 .map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .map p{font-size:.92rem;color:var(--ink-2);margin-bottom:16px;max-width:38ch}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PROGETTI — l'elenco (progetti.html) e la scheda del singolo progetto
+   (progetto-*.html). Aggiungere un progetto significa aggiungere una card
+   qui e una pagina copiata da progetto-borgo-noseda.html: nessuna di queste
+   regole va toccata.
+   ═══════════════════════════════════════════════════════════════════════ */
+.prog-lista{display:grid;gap:clamp(20px,2.6vw,30px)}
+@media(min-width:760px){.prog-lista{grid-template-columns:repeat(2,1fr)}}
+
+.prog-card{
+  display:flex;flex-direction:column;background:var(--bone);
+  border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;
+  text-decoration:none;color:inherit;position:relative;
+  transition:border-color .4s var(--ease),transform .5s var(--ease);
+}
+.prog-card:hover{border-color:var(--turq-ink);transform:translateY(-4px)}
+.prog-card .foto{position:relative;line-height:0;overflow:hidden}
+.prog-card img{
+  width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;
+  transition:transform .7s var(--ease);
+}
+.prog-card:hover img{transform:scale(1.04)}
+.prog-corpo{padding:clamp(20px,2.4vw,28px);display:flex;flex-direction:column;gap:10px;flex:1}
+.prog-corpo h3{font-size:clamp(1.35rem,2.2vw,1.75rem)}
+.prog-corpo p{font-size:.95rem;color:var(--ink-2)}
+.prog-meta{
+  display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:4px;
+  font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-2);
+}
+.prog-meta b{color:var(--petrol);font-weight:700}
+.prog-card .link{margin-top:auto;padding-top:8px;min-height:44px;align-items:flex-end}
+
+/* Il riquadro che chiude l'elenco: è un invito, non un progetto finto. */
+.prog-invito{
+  display:flex;flex-direction:column;justify-content:center;gap:14px;
+  padding:clamp(24px,3vw,38px);border:1px dashed var(--line-2);border-radius:var(--rad);
+  background:var(--bone-2);
+}
+.prog-invito h3{font-size:clamp(1.25rem,2vw,1.55rem)}
+.prog-invito p{font-size:.95rem;color:var(--ink-2);max-width:40ch}
+
+/* L'etichetta di stato era legata alla sezione in evidenza: ora serve anche
+   sulle card e nell'intestazione della scheda, quindi non è più annidata. */
+.stato-lav{
+  display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;
+  font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink);background:var(--turq);border-radius:999px;padding:7px 15px;
+}
+.prog-card .stato-lav{position:absolute;top:14px;left:14px;z-index:2;margin:0}
+
+/* Le briciole: dicono dove sei e riportano all'elenco. */
+.briciole{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--ink-2);margin-bottom:18px;
+}
+.briciole a{color:var(--turq-ink);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.briciole a:hover{text-decoration:underline}
+.sec-dark .briciole{color:#8FA2A0}
+.sec-dark .briciole a{color:var(--turq)}
+
+/* I dati del progetto: coppie etichetta/valore, non una tabella, perché
+   sul telefono una tabella a due colonne si spezza male. */
+.dati{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--rad);overflow:hidden}
+@media(min-width:620px){.dati{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1040px){.dati{grid-template-columns:repeat(4,1fr)}}
+.dati>div{background:var(--bone);padding:clamp(18px,2.2vw,24px);display:flex;flex-direction:column;gap:6px}
+.dati dt{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.dati dd{font-size:1.05rem;font-weight:600;color:var(--ink);line-height:1.35}
+.dati dd small{display:block;font-size:.82rem;font-weight:400;color:var(--ink-2);margin-top:4px}
+
+/* Quando un dato non c'è ancora lo si dice, non lo si inventa. */
+.in-attesa{color:var(--ink-2);font-weight:500}
+
+/* Il contatto della singola scheda: WhatsApp ed email, già compilati. */
+.prog-contatto{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+/* Verde WhatsApp scurito: quello ufficiale (#25D366) su testo osso sta a 1,8:1
+   e non passa. Questo regge il testo chiaro. */
+.btn-wa{--bg:#146B47}
+.btn svg{position:relative;z-index:2;width:19px;height:19px;flex:none}
+
+/* Gruppo di foto ancora vuoto: lo stato si dichiara, non si nasconde. */
+.gal-vuota{
+  grid-column:1/-1;border:1px dashed var(--line-2);border-radius:var(--rad);
+  padding:clamp(28px,4vw,44px);text-align:center;color:var(--ink-2);font-size:.95rem;
+}
+.sec-dark .gal-vuota{border-color:#3A4C4A;color:#8FA2A0}
 
 /* ═══════════════════════════════════════════════════════════════════════
    FAQ
@@ -567,11 +657,8 @@ footer a:hover{color:var(--turq)}
 @media(min-width:980px){.evid-grid{grid-template-columns:1.05fr .95fr}}
 /* 16/9: è la proporzione nativa della foto da drone, così non si taglia. */
 .evid-ph{aspect-ratio:16/9;border-radius:var(--rad);object-fit:cover;width:100%;height:auto}
-.evid .stato-lav{
-  display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;
-  font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--ink);background:var(--turq);border-radius:999px;padding:7px 15px;
-}
+/* .stato-lav sta ora nel blocco PROGETTI, senza annidamento: la usano anche
+   le card dell'elenco e l'intestazione della scheda. */
 .evid-fatti{list-style:none;display:grid;gap:12px;margin:24px 0 30px}
 .evid-fatti li{display:flex;gap:12px;align-items:flex-start;font-size:.98rem;color:#B7C6C4}
 .evid-fatti svg{width:19px;height:19px;color:var(--turq);flex:none;margin-top:3px}
@@ -639,6 +726,9 @@ footer a:hover{color:var(--turq)}
 .ruolo svg{width:38px;height:38px;color:var(--turq-ink)}
 .ruolo h3{font-size:clamp(1.25rem,2vw,1.5rem)}
 .ruolo p{font-size:.95rem;color:var(--ink-2)}
+/* Il link del riquadro Investitori: spinto in fondo con margin-top:auto
+   così resta allineato qualunque sia la lunghezza del testo sopra. */
+.ruolo .link{margin-top:auto;align-self:flex-start;min-height:44px;align-items:flex-end}
 
 .parole{list-style:none;display:grid;gap:0;border-top:1px solid #29403E}
 .parola{

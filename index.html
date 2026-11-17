@@ -12,7 +12,7 @@
 <meta property="og:locale" content="it_IT" />
 <meta property="og:url" content="https://www.infinitycontract.org/" />
 <meta property="og:title" content="Infinity Contract — ridiamo vita e valore agli immobili" />
-<meta property="og:description" content="Riqualifichiamo immobili esistenti perché tornino a vivere, valgano di più e restituiscano bellezza a ciò che li circonda. Como, Brianza, Milano." />
+<meta property="og:description" content="Riqualifichiamo immobili esistenti perché tornino a vivere, valgano di più e restituiscano bellezza a ciò che li circonda. Como, Brianza, Milano e hinterland." />
 <!-- [DA COMPILARE] og:image 1200×630 — un render di Borgo Noseda va benissimo.
 <meta property="og:image" content="https://www.infinitycontract.org/img/og.jpg" /> -->
 
@@ -47,7 +47,8 @@
     { "@type": "AdministrativeArea", "name": "Lago di Como" },
     { "@type": "AdministrativeArea", "name": "Provincia di Como" },
     { "@type": "AdministrativeArea", "name": "Brianza" },
-    { "@type": "City", "name": "Milano" }
+    { "@type": "City", "name": "Milano" },
+    { "@type": "AdministrativeArea", "name": "Città metropolitana di Milano" }
   ],
   "founder": { "@type": "Person", "name": "Roberta Battini" },
   "knowsAbout": ["Riqualificazione immobiliare", "Ristrutturazione", "Sviluppo immobiliare", "Nuove costruzioni"]
@@ -78,7 +79,7 @@
   </a>
   <nav id="nav" aria-label="Principale">
     <a href="#servizi">Servizi</a>
-    <a href="#borgo">Borgo Noseda</a>
+    <a href="progetti.html">Progetti</a>
     <a href="#metodo">Come lavoriamo</a>
     <a href="#chi">Chi siamo</a>
     <a href="lavora-con-noi.html">Lavora con noi</a>
@@ -92,7 +93,7 @@
 
 <div id="menu" aria-hidden="true">
   <a href="#servizi">Servizi</a>
-  <a href="#borgo">Borgo Noseda</a>
+  <a href="progetti.html">Progetti</a>
   <a href="#metodo">Come lavoriamo</a>
   <a href="#chi">Chi siamo</a>
   <a href="lavora-con-noi.html">Lavora con noi</a>
@@ -112,7 +113,7 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <p class="kicker">Riqualificazione immobiliare · Como, Brianza, Milano</p>
+      <p class="kicker">Riqualificazione immobiliare · Como, Brianza, Milano e hinterland</p>
       <h1>
         <span class="line"><span>Ridiamo <em>vita</em></span></span>
         <span class="line"><span>e valore</span></span>
@@ -349,7 +350,10 @@
             per il borgo.</span>
         </li>
       </ul>
-      <a class="btn btn-lg" href="#contatti" data-motivo="Informazioni su Borgo Noseda"><span>Chiedi informazioni</span></a>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+        <a class="btn btn-lg" href="progetto-borgo-noseda.html"><span>Apri la scheda</span></a>
+        <a class="link" href="#contatti" data-motivo="Informazioni su Borgo Noseda">Chiedi informazioni</a>
+      </div>
     </div>
   </div>
 </section>
@@ -743,15 +747,10 @@
      CHI SIAMO
      ══════════════════════════════════════════════════════════════════════ -->
 <section class="sec" id="chi" aria-labelledby="h-chi">
-  <div class="wrap chi-grid">
-    <div class="rv">
-      <!-- [DA SOSTITUIRE] il brief chiede una foto della squadra: questa è un
-           vicolo del borgo prima dell'intervento. Regge, ma una foto delle
-           persone direbbe molto di più. -->
-      <img src="img/oggi-vicolo-lago.jpg" class="chi-ph"
-           width="1050" height="1400" loading="lazy" decoding="async"
-           alt="Un vicolo del borgo a Cernobbio prima dell'intervento, con il lago sullo sfondo." />
-    </div>
+  <div class="wrap chi-solo">
+    <!-- Niente foto qui: il vicolo del borgo non c'entrava con "chi siamo".
+         Quando arriva la foto della squadra che chiede il brief, torna
+         l'impaginato a due colonne — vedi README, "La foto di Chi siamo". -->
     <div class="rv">
       <p class="kicker">Chi siamo</p>
       <h2 id="h-chi">Una <em>squadra</em>, non un'impresa sola</h2>
@@ -761,8 +760,7 @@
         realizziamo insieme a professionisti scelti uno a uno.</p>
 
       <blockquote class="cit">I numeri ci dicono se un progetto sta in piedi; l'ascolto
-        e la psicologia ci aiutano a capire cosa desidera davvero chi ci andrà a
-        vivere.</blockquote>
+        ci aiuta a capire cosa desidera davvero chi ci andrà a vivere.</blockquote>
 
       <ul class="pilastri">
         <li>
@@ -883,7 +881,10 @@
         <div>
           <p><b>Via Ronzoni 28</b> — 22072 Cermenate (CO). Sede legale e operativa.
             La mappa si carica solo se la apri tu.</p>
-          <button class="btn btn-ghost" id="mapBtn"><span>Apri la mappa</span></button>
+          <button class="btn btn-ghost" id="mapBtn"
+            data-mappa="map" data-bbox="9.070,45.700,9.098,45.715"
+            data-marker="45.7075,9.0839"
+            data-titolo-mappa="Mappa: Via Ronzoni 28, Cermenate"><span>Apri la mappa</span></button>
         </div>
       </div>
     </div>
@@ -1092,7 +1093,7 @@
         <h4>Pagine</h4>
         <ul>
           <li><a href="#servizi">Servizi</a></li>
-          <li><a href="#borgo">Borgo Noseda</a></li>
+          <li><a href="progetti.html">Progetti</a></li>
           <li><a href="#metodo">Come lavoriamo</a></li>
           <li><a href="#chi">Chi siamo</a></li>
           <li><a href="lavora-con-noi.html">Lavora con noi</a></li>
